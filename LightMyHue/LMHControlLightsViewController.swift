@@ -14,6 +14,7 @@ import UIKit
 class LMHControlLightsViewController: UIViewController {
   
   let maxHue = 65535
+  let maxDim = 254
   
   @IBOutlet var bridgeMacLabel: UILabel?
   @IBOutlet var bridgeIpLabel: UILabel?
@@ -113,7 +114,7 @@ class LMHControlLightsViewController: UIViewController {
       
       if light.type == DIM_LIGHT {
         // Lux bulbs just get a random brightness
-        lightState.brightness = Int(arc4random()) % 254
+        lightState.brightness = Int(arc4random_uniform(UInt32(maxDim)))
       } else {
         let hueColor = Int(arc4random_uniform(UInt32(maxHue)))
 
