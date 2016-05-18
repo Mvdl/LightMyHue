@@ -8,20 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		7B68C37F1CEC7A4E00075A77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C37E1CEC7A4E00075A77 /* AppDelegate.swift */; };
-		7B68C3811CEC7A4E00075A77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3801CEC7A4E00075A77 /* ViewController.swift */; };
 		7B68C3841CEC7A4E00075A77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B68C3821CEC7A4E00075A77 /* Main.storyboard */; };
 		7B68C3861CEC7A4E00075A77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B68C3851CEC7A4E00075A77 /* Assets.xcassets */; };
 		7B68C3891CEC7A4E00075A77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B68C3871CEC7A4E00075A77 /* LaunchScreen.storyboard */; };
+		7B68C3971CEC7C3500075A77 /* HueSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B68C3961CEC7C3500075A77 /* HueSDK_iOS.framework */; };
+		7B68C3A81CEC7C5000075A77 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C39A1CEC7C5000075A77 /* DDAbstractDatabaseLogger.m */; };
+		7B68C3A91CEC7C5000075A77 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C39C1CEC7C5000075A77 /* DDASLLogger.m */; };
+		7B68C3AA1CEC7C5000075A77 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C39E1CEC7C5000075A77 /* DDFileLogger.m */; };
+		7B68C3AB1CEC7C5000075A77 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3A01CEC7C5000075A77 /* DDLog.m */; };
+		7B68C3AC1CEC7C5000075A77 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3A21CEC7C5000075A77 /* DDTTYLogger.m */; };
+		7B68C3AD1CEC7C5000075A77 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3A51CEC7C5000075A77 /* ContextFilterLogFormatter.m */; };
+		7B68C3AE1CEC7C5000075A77 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3A71CEC7C5000075A77 /* DispatchQueueLogFormatter.m */; };
+		7B68C3B01CEC7C8300075A77 /* LMHControlLightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3AF1CEC7C8300075A77 /* LMHControlLightsViewController.swift */; };
+		7B68C3B21CEC7DBA00075A77 /* LMHLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3B11CEC7DBA00075A77 /* LMHLoadingViewController.swift */; };
+		7B68C3B41CEC7E4200075A77 /* LMHBridgePushLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3B31CEC7E4200075A77 /* LMHBridgePushLinkViewController.swift */; };
+		7B68C3B61CEC89DE00075A77 /* LMHBridgeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B68C3B51CEC89DE00075A77 /* LMHBridgeSelectionViewController.swift */; };
+		7B68C3B81CEC9A6800075A77 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B68C3B71CEC9A6800075A77 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7B68C37B1CEC7A4E00075A77 /* LightMyHue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightMyHue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B68C37E1CEC7A4E00075A77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7B68C3801CEC7A4E00075A77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B68C3831CEC7A4E00075A77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B68C3851CEC7A4E00075A77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B68C3881CEC7A4E00075A77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B68C38A1CEC7A4E00075A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B68C3901CEC7A7000075A77 /* LightMyHue-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightMyHue-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		7B68C3961CEC7C3500075A77 /* HueSDK_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_iOS.framework; sourceTree = "<group>"; };
+		7B68C3991CEC7C5000075A77 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		7B68C39A1CEC7C5000075A77 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		7B68C39B1CEC7C5000075A77 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		7B68C39C1CEC7C5000075A77 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		7B68C39D1CEC7C5000075A77 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		7B68C39E1CEC7C5000075A77 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		7B68C39F1CEC7C5000075A77 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		7B68C3A01CEC7C5000075A77 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		7B68C3A11CEC7C5000075A77 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		7B68C3A21CEC7C5000075A77 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		7B68C3A41CEC7C5000075A77 /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		7B68C3A51CEC7C5000075A77 /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		7B68C3A61CEC7C5000075A77 /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
+		7B68C3A71CEC7C5000075A77 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		7B68C3AF1CEC7C8300075A77 /* LMHControlLightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMHControlLightsViewController.swift; sourceTree = "<group>"; };
+		7B68C3B11CEC7DBA00075A77 /* LMHLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMHLoadingViewController.swift; sourceTree = "<group>"; };
+		7B68C3B31CEC7E4200075A77 /* LMHBridgePushLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMHBridgePushLinkViewController.swift; sourceTree = "<group>"; };
+		7B68C3B51CEC89DE00075A77 /* LMHBridgeSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LMHBridgeSelectionViewController.swift; sourceTree = "<group>"; };
+		7B68C3B71CEC9A6800075A77 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B68C3971CEC7C3500075A77 /* HueSDK_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +71,7 @@
 		7B68C3721CEC7A4E00075A77 = {
 			isa = PBXGroup;
 			children = (
+				7B68C3B71CEC9A6800075A77 /* Default-568h@2x.png */,
 				7B68C37D1CEC7A4E00075A77 /* LightMyHue */,
 				7B68C37C1CEC7A4E00075A77 /* Products */,
 			);
@@ -54,14 +88,58 @@
 		7B68C37D1CEC7A4E00075A77 /* LightMyHue */ = {
 			isa = PBXGroup;
 			children = (
+				7B68C3901CEC7A7000075A77 /* LightMyHue-Bridging-Header.h */,
 				7B68C37E1CEC7A4E00075A77 /* AppDelegate.swift */,
-				7B68C3801CEC7A4E00075A77 /* ViewController.swift */,
+				7B68C3AF1CEC7C8300075A77 /* LMHControlLightsViewController.swift */,
+				7B68C3B11CEC7DBA00075A77 /* LMHLoadingViewController.swift */,
+				7B68C3B31CEC7E4200075A77 /* LMHBridgePushLinkViewController.swift */,
+				7B68C3B51CEC89DE00075A77 /* LMHBridgeSelectionViewController.swift */,
 				7B68C3821CEC7A4E00075A77 /* Main.storyboard */,
 				7B68C3851CEC7A4E00075A77 /* Assets.xcassets */,
 				7B68C3871CEC7A4E00075A77 /* LaunchScreen.storyboard */,
 				7B68C38A1CEC7A4E00075A77 /* Info.plist */,
+				7B68C3931CEC7A9D00075A77 /* Frameworks */,
 			);
 			path = LightMyHue;
+			sourceTree = "<group>";
+		};
+		7B68C3931CEC7A9D00075A77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B68C3981CEC7C5000075A77 /* Lumberjack */,
+				7B68C3961CEC7C3500075A77 /* HueSDK_iOS.framework */,
+			);
+			name = Frameworks;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		7B68C3981CEC7C5000075A77 /* Lumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				7B68C3991CEC7C5000075A77 /* DDAbstractDatabaseLogger.h */,
+				7B68C39A1CEC7C5000075A77 /* DDAbstractDatabaseLogger.m */,
+				7B68C39B1CEC7C5000075A77 /* DDASLLogger.h */,
+				7B68C39C1CEC7C5000075A77 /* DDASLLogger.m */,
+				7B68C39D1CEC7C5000075A77 /* DDFileLogger.h */,
+				7B68C39E1CEC7C5000075A77 /* DDFileLogger.m */,
+				7B68C39F1CEC7C5000075A77 /* DDLog.h */,
+				7B68C3A01CEC7C5000075A77 /* DDLog.m */,
+				7B68C3A11CEC7C5000075A77 /* DDTTYLogger.h */,
+				7B68C3A21CEC7C5000075A77 /* DDTTYLogger.m */,
+				7B68C3A31CEC7C5000075A77 /* Extensions */,
+			);
+			path = Lumberjack;
+			sourceTree = "<group>";
+		};
+		7B68C3A31CEC7C5000075A77 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7B68C3A41CEC7C5000075A77 /* ContextFilterLogFormatter.h */,
+				7B68C3A51CEC7C5000075A77 /* ContextFilterLogFormatter.m */,
+				7B68C3A61CEC7C5000075A77 /* DispatchQueueLogFormatter.h */,
+				7B68C3A71CEC7C5000075A77 /* DispatchQueueLogFormatter.m */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B68C3891CEC7A4E00075A77 /* LaunchScreen.storyboard in Resources */,
+				7B68C3B81CEC9A6800075A77 /* Default-568h@2x.png in Resources */,
 				7B68C3861CEC7A4E00075A77 /* Assets.xcassets in Resources */,
 				7B68C3841CEC7A4E00075A77 /* Main.storyboard in Resources */,
 			);
@@ -136,8 +215,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B68C3811CEC7A4E00075A77 /* ViewController.swift in Sources */,
+				7B68C3AB1CEC7C5000075A77 /* DDLog.m in Sources */,
+				7B68C3A91CEC7C5000075A77 /* DDASLLogger.m in Sources */,
 				7B68C37F1CEC7A4E00075A77 /* AppDelegate.swift in Sources */,
+				7B68C3B21CEC7DBA00075A77 /* LMHLoadingViewController.swift in Sources */,
+				7B68C3B61CEC89DE00075A77 /* LMHBridgeSelectionViewController.swift in Sources */,
+				7B68C3AE1CEC7C5000075A77 /* DispatchQueueLogFormatter.m in Sources */,
+				7B68C3B41CEC7E4200075A77 /* LMHBridgePushLinkViewController.swift in Sources */,
+				7B68C3A81CEC7C5000075A77 /* DDAbstractDatabaseLogger.m in Sources */,
+				7B68C3AC1CEC7C5000075A77 /* DDTTYLogger.m in Sources */,
+				7B68C3AA1CEC7C5000075A77 /* DDFileLogger.m in Sources */,
+				7B68C3B01CEC7C8300075A77 /* LMHControlLightsViewController.swift in Sources */,
+				7B68C3AD1CEC7C5000075A77 /* ContextFilterLogFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,10 +339,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LightMyHue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mvdlinden.LightMyHue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LightMyHue-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -261,10 +359,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LightMyHue/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mvdlinden.LightMyHue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LightMyHue-Bridging-Header.h";
 			};
 			name = Release;
 		};
