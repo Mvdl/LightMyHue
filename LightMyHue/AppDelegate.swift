@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var loadingView: LMHLoadingViewController?
   
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    phHueSdk.startUpSDK()
-    phHueSdk.enableLogging(true)
-    let notificationManager = PHNotificationManager.defaultManager()
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    phHueSdk.startUp()
+    phHueSdk.enableLogging(false)
+    let notificationManager = PHNotificationManager.default()
     
     navigationController = window!.rootViewController as? UINavigationController
     
@@ -41,9 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //
     // - NO_LOCAL_AUTHENTICATION_NOTIFICATION
     // This notification will notify that there is no authentication against the bridge
-    notificationManager.registerObject(self, withSelector: #selector(self.localConnection) , forNotification: LOCAL_CONNECTION_NOTIFICATION)
-    notificationManager.registerObject(self, withSelector: #selector(self.noLocalConnection), forNotification: NO_LOCAL_CONNECTION_NOTIFICATION)
-    notificationManager.registerObject(self, withSelector: #selector(self.notAuthenticated), forNotification: NO_LOCAL_AUTHENTICATION_NOTIFICATION)
+    notificationManager?.register(self, with: #selector(self.localConnection) , forNotification: LOCAL_CONNECTION_NOTIFICATION)
+    notificationManager?.register(self, with: #selector(self.noLocalConnection), forNotification: NO_LOCAL_CONNECTION_NOTIFICATION)
+    notificationManager?.register(self, with: #selector(self.notAuthenticated), forNotification: NO_LOCAL_AUTHENTICATION_NOTIFICATION)
     
     // The local heartbeat is a regular timer event in the SDK. Once enabled the SDK regular collects the current state of resources managed by the bridge into the Bridge Resources Cache
     enableLocalHeartbeat()
@@ -51,13 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   
-  func applicationWillResignActive(application: UIApplication) {
+  func applicationWillResignActive(_ application: UIApplication) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
   }
   
   
-  func applicationDidEnterBackground(application: UIApplication) {
+  func applicationDidEnterBackground(_ application: UIApplication) {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
@@ -65,27 +65,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     disableLocalHeartbeat()
     
     // Remove any open popups
-    noConnectionAlert?.dismissViewControllerAnimated(false, completion: nil)
+    noConnectionAlert?.dismiss(animated: false, completion: nil)
     noConnectionAlert = nil
-    noBridgeFoundAlert?.dismissViewControllerAnimated(false, completion: nil)
+    noBridgeFoundAlert?.dismiss(animated: false, completion: nil)
     noBridgeFoundAlert = nil
-    authenticationFailedAlert?.dismissViewControllerAnimated(false, completion: nil)
+    authenticationFailedAlert?.dismiss(animated: false, completion: nil)
     authenticationFailedAlert = nil
   }
   
   
-  func applicationWillEnterForeground(application: UIApplication) {
+  func applicationWillEnterForeground(_ application: UIApplication) {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     enableLocalHeartbeat()
   }
   
   
-  func applicationDidBecomeActive(application: UIApplication) {
+  func applicationDidBecomeActive(_ application: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
   
   
-  func applicationWillTerminate(application: UIApplication) {
+  func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
   }
@@ -110,21 +110,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // We are not authenticated so we start the authentication process
     
     // Move to main screen (as you can't control lights when not connected)
-    navigationController!.popToRootViewControllerAnimated(false)
+    navigationController!.popToRootViewController(animated: false)
     
     // Dismiss modal views when connection is lost
     if navigationController!.presentedViewController != nil {
-      navigationController!.dismissViewControllerAnimated(true, completion: nil)
+      navigationController!.dismiss(animated: true, completion: nil)
     }
     
     // Remove no connection alert
-    noConnectionAlert?.dismissViewControllerAnimated(false, completion: nil)
+    noConnectionAlert?.dismiss(animated: false, completion: nil)
     noConnectionAlert = nil
     
     // Start local authenticion process
     let delay = 0.5 * Double(NSEC_PER_SEC)
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-    dispatch_after(time, dispatch_get_main_queue()) {
+    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: time) {
       self.doAuthentication()
     }
   }
@@ -136,13 +136,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       // Dismiss modal views when connection is lost
       
       if navigationController!.presentedViewController != nil {
-        navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        navigationController!.dismiss(animated: true, completion: nil)
       }
       
       // No connection at all, show connection popup
       
       if noConnectionAlert == nil {
-        navigationController!.popToRootViewControllerAnimated(true)
+        navigationController!.popToRootViewController(animated: true)
         
         // Showing popup, so remove this view
         removeLoadingView()
@@ -150,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     } else {
       // One of the connections is made, remove popups and loading views
-      noConnectionAlert?.dismissViewControllerAnimated(false, completion: nil)
+      noConnectionAlert?.dismiss(animated: false, completion: nil)
       noConnectionAlert = nil
       removeLoadingView()
     }
@@ -162,12 +162,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     noConnectionAlert = UIAlertController(
       title: NSLocalizedString("No Connection", comment: "No connection alert title"),
       message: NSLocalizedString("Connection to bridge is lost", comment: "No Connection alert message"),
-      preferredStyle: .Alert
+      preferredStyle: .alert
     )
     
     let reconnectAction = UIAlertAction(
       title: NSLocalizedString("Reconnect", comment: "No connection alert reconnect button"),
-      style: .Default
+      style: .default
     ) { (_) in
       // Retry, just wait for the heartbeat to finish
       self.showLoadingViewWithText(NSLocalizedString("Connecting...", comment: "Connecting text"))
@@ -176,7 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let newBridgeAction = UIAlertAction(
       title: NSLocalizedString("Find new bridge", comment: "No connection find new bridge button"),
-      style: .Default
+      style: .default
     ) { (_) in
       self.searchForBridgeLocal()
     }
@@ -184,12 +184,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let cancelAction = UIAlertAction(
       title: NSLocalizedString("Cancel", comment: "No bridge found alert cancel button"),
-      style: .Cancel
+      style: .cancel
     ) { (_) in
       self.disableLocalHeartbeat()
     }
     noConnectionAlert!.addAction(cancelAction)
-    window!.rootViewController!.presentViewController(noConnectionAlert!, animated: true, completion: nil)
+    window!.rootViewController!.present(noConnectionAlert!, animated: true, completion: nil)
   }
   
   
@@ -228,7 +228,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // Start search
     let bridgeSearch = PHBridgeSearching(upnpSearch: true, andPortalSearch: true, andIpAdressSearch: true)
-    bridgeSearch.startSearchWithCompletionHandler { (bridgesFound: [NSObject: AnyObject]!) -> () in
+    bridgeSearch?.startSearch { (bridgesFound: [AnyHashable: Any]!) -> () in
       // Done with search, remove loading view
       self.removeLoadingView()
       
@@ -236,13 +236,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       if bridgesFound.count > 0 {
         // Results were found, show options to user (from a user point of view, you should select automatically when there is only one bridge found)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let bridgeViewController = storyboard.instantiateViewControllerWithIdentifier("BridgeSelection") as! LMHBridgeSelectionViewController
+        let bridgeViewController = storyboard.instantiateViewController(withIdentifier: "BridgeSelection") as! LMHBridgeSelectionViewController
         bridgeViewController.bridgesFound = (bridgesFound as! [String: String])
         bridgeViewController.delegate = self
         let navController = UINavigationController(rootViewController: bridgeViewController)
         // Make it a form on iPad
-        navController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
-        self.navigationController!.presentViewController(navController, animated: true, completion: nil)
+        navController.modalPresentationStyle = UIModalPresentationStyle.formSheet
+        self.navigationController!.present(navController, animated: true, completion: nil)
         
       } else {
         // No bridge was found was found. Tell the user and offer to retry..
@@ -250,24 +250,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.noBridgeFoundAlert = UIAlertController(
           title: NSLocalizedString("No bridges", comment: "No bridge found alert title"),
           message: NSLocalizedString("Could not find bridge", comment: "No bridge found alert message"),
-          preferredStyle: .Alert
+          preferredStyle: .alert
         )
         
         let retryAction = UIAlertAction(
           title: NSLocalizedString("Rertry", comment: "No bridge found alert retry button"),
-          style: .Default
+          style: .default
         ) { (_) in
           self.searchForBridgeLocal()
         }
         self.noBridgeFoundAlert!.addAction(retryAction)
         let cancelAction = UIAlertAction(
           title: NSLocalizedString("Cancel", comment: "No bridge found alert cancel button"),
-          style: .Cancel
+          style: .cancel
         ) { (_) in
           self.disableLocalHeartbeat()
         }
         self.noBridgeFoundAlert!.addAction(cancelAction)
-        self.window!.rootViewController!.presentViewController(self.noBridgeFoundAlert!, animated: true, completion: nil)
+        self.window!.rootViewController!.present(self.noBridgeFoundAlert!, animated: true, completion: nil)
       }
     }
   }
@@ -281,12 +281,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // To be certain that we own this bridge we must manually push link it. Here we display the view to do this.
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let pushLinkViewController = storyboard.instantiateViewControllerWithIdentifier("BridgePushLink") as! LMHBridgePushLinkViewController
+    let pushLinkViewController = storyboard.instantiateViewController(withIdentifier: "BridgePushLink") as! LMHBridgePushLinkViewController
     // Make it a form on iPad
-    pushLinkViewController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+    pushLinkViewController.modalPresentationStyle = UIModalPresentationStyle.formSheet
     pushLinkViewController.phHueSdk = phHueSdk
     pushLinkViewController.delegate = self
-    navigationController?.presentViewController(
+    navigationController?.present(
       pushLinkViewController,
       animated: true,
       completion: {(bool) in
@@ -299,13 +299,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   /// Shows an overlay over the whole screen with a black box with spinner and loading text in the middle
   /// :param: text The text to display under the spinner
-  func showLoadingViewWithText(text:String) {
+  func showLoadingViewWithText(_ text:String) {
     // First remove
     removeLoadingView()
     
     // Then add new
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    loadingView = storyboard.instantiateViewControllerWithIdentifier("Loading") as? LMHLoadingViewController
+    loadingView = storyboard.instantiateViewController(withIdentifier: "Loading") as? LMHLoadingViewController
     loadingView!.view.frame = navigationController!.view.bounds
     navigationController?.view.addSubview(loadingView!.view)
     loadingView!.loadingLabel?.text = text
@@ -323,9 +323,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: PHBridgeSelectionViewControllerDelegate {
   
   /// Delegate method for BridgeSelectionViewController which is invoked when a bridge is selected
-  func bridgeSelectedWithIpAddress(ipAddress:String, bridgeId: String) {
+  func bridgeSelectedWithIpAddress(_ ipAddress:String, bridgeId: String) {
     // Removing the selection view controller takes us to the 'normal' UI view
-    window!.rootViewController! .dismissViewControllerAnimated(true, completion: nil)
+    window!.rootViewController! .dismiss(animated: true, completion: nil)
     
     // Show a connecting view while we try to connect to the bridge
     showLoadingViewWithText(NSLocalizedString("Connecting", comment: "Connecting text"))
@@ -337,8 +337,8 @@ extension AppDelegate: PHBridgeSelectionViewControllerDelegate {
     
     // Setting the hearbeat running will cause the SDK to regularly update the cache with the status of the bridge resources
     let delay = 1 * Double(NSEC_PER_SEC)
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-    dispatch_after(time, dispatch_get_main_queue()) {
+    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: time) {
       self.enableLocalHeartbeat()
     }
   }
@@ -353,21 +353,21 @@ extension AppDelegate: PHBridgePushLinkViewControllerDelegate {
     // Push linking succeeded we are authenticated against the chosen bridge.
     
     // Remove pushlink view controller
-    navigationController!.dismissViewControllerAnimated(true, completion: nil)
+    navigationController!.dismiss(animated: true, completion: nil)
     
     // Start local heartbeat
     let delay = 1 * Double(NSEC_PER_SEC)
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-    dispatch_after(time, dispatch_get_main_queue()) {
+    let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: time) {
       self.enableLocalHeartbeat()
     }
   }
 
   
   /// Delegate method for PHBridgePushLinkViewController which is invoked if the pushlinking was not successfull
-  func pushlinkFailed(error: PHError) {
+  func pushlinkFailed(_ error: PHError) {
     // Remove pushlink view controller
-    navigationController!.dismissViewControllerAnimated(true, completion: nil)
+    navigationController!.dismiss(animated: true, completion: nil)
     
     // Check which error occured
     if error.code == Int(PUSHLINK_NO_CONNECTION.rawValue) {
@@ -375,8 +375,8 @@ extension AppDelegate: PHBridgePushLinkViewControllerDelegate {
       
       // Start local heartbeat (to see when connection comes back)
       let delay = 1 * Double(NSEC_PER_SEC)
-      let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-      dispatch_after(time, dispatch_get_main_queue()) {
+      let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+      DispatchQueue.main.asyncAfter(deadline: time) {
         self.enableLocalHeartbeat()
       }
     } else {
@@ -384,12 +384,12 @@ extension AppDelegate: PHBridgePushLinkViewControllerDelegate {
       authenticationFailedAlert = UIAlertController(
         title: NSLocalizedString("Authentication failed", comment: "Authentication failed alert title"),
         message: NSLocalizedString("Make sure you press the button within 30 seconds", comment: "Authentication failed alert message"),
-        preferredStyle: .Alert
+        preferredStyle: .alert
       )
       
       let retryAction = UIAlertAction(
         title: NSLocalizedString("Retry", comment: "Authentication failed alert retry button"),
-        style: .Default
+        style: .default
       ) { (_) in
         // Retry authentication
         self.doAuthentication()
@@ -398,7 +398,7 @@ extension AppDelegate: PHBridgePushLinkViewControllerDelegate {
       
       let cancelAction = UIAlertAction(
         title: NSLocalizedString("Cancel", comment: "Authentication failed cancel button"),
-        style: .Cancel
+        style: .cancel
       ) { (_) in
         // Remove connecting loading message
         self.removeLoadingView()
@@ -407,7 +407,7 @@ extension AppDelegate: PHBridgePushLinkViewControllerDelegate {
       }
       authenticationFailedAlert!.addAction(cancelAction)
       
-      window!.rootViewController!.presentViewController(authenticationFailedAlert!, animated: true, completion: nil)
+      window!.rootViewController!.present(authenticationFailedAlert!, animated: true, completion: nil)
     }
   }
 }

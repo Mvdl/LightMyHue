@@ -24,13 +24,13 @@ class LMHControlLightsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let notificationManager = PHNotificationManager.defaultManager()
+    let notificationManager = PHNotificationManager.default()
     // Register for the local heartbeat notifications
-    notificationManager.registerObject(self, withSelector: #selector(LMHControlLightsViewController.localConnection), forNotification: LOCAL_CONNECTION_NOTIFICATION)
+    notificationManager?.register(self, with: #selector(LMHControlLightsViewController.localConnection), forNotification: LOCAL_CONNECTION_NOTIFICATION)
     
-    notificationManager.registerObject(self, withSelector: #selector(LMHControlLightsViewController.noLocalConnection), forNotification: NO_LOCAL_CONNECTION_NOTIFICATION)
+    notificationManager?.register(self, with: #selector(LMHControlLightsViewController.noLocalConnection), forNotification: NO_LOCAL_CONNECTION_NOTIFICATION)
     
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Find Bridge", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(LMHControlLightsViewController.findNewBridgeButtonAction))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Find Bridge", style: UIBarButtonItemStyle.plain, target: self, action: #selector(LMHControlLightsViewController.findNewBridgeButtonAction))
     
     navigationItem.title = "QuickStart"
     
@@ -45,7 +45,7 @@ class LMHControlLightsViewController: UIViewController {
   
   
   @nonobjc func edgesForExtendedLayout() -> UIRectEdge {
-    return [UIRectEdge.Left, UIRectEdge.Bottom, UIRectEdge.Right]
+    return [UIRectEdge.left, UIRectEdge.bottom, UIRectEdge.right]
   }
   
   
@@ -56,13 +56,13 @@ class LMHControlLightsViewController: UIViewController {
   
   func noLocalConnection() {
     bridgeLastHeartbeatLabel?.text = "Not connected"
-    bridgeLastHeartbeatLabel?.enabled = false
+    bridgeLastHeartbeatLabel?.isEnabled = false
     bridgeIpLabel?.text = "Not connected"
-    bridgeIpLabel?.enabled = false
+    bridgeIpLabel?.isEnabled = false
     bridgeMacLabel?.text = "Not connected"
-    bridgeMacLabel?.enabled = false
+    bridgeMacLabel?.isEnabled = false
     
-    randomLightsButton?.enabled = false
+    randomLightsButton?.isEnabled = false
   }
   
   
@@ -79,19 +79,19 @@ class LMHControlLightsViewController: UIViewController {
       
       
       // Check if we are connected to the bridge right now
-      let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+      let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
       if appDelegate.phHueSdk.localConnected() {
         
         // Show current time as last successful heartbeat time when we are connected to a bridge
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .NoStyle
-        dateFormatter.timeStyle = .MediumStyle
-        bridgeLastHeartbeatLabel?.text = dateFormatter.stringFromDate(NSDate())
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .medium
+        bridgeLastHeartbeatLabel?.text = dateFormatter.string(from: Date())
         
-        randomLightsButton?.enabled = true
+        randomLightsButton?.isEnabled = true
       } else {
         bridgeLastHeartbeatLabel?.text = "Waiting..."
-        randomLightsButton?.enabled = false
+        randomLightsButton?.isEnabled = false
       }
     }
   }
@@ -100,50 +100,50 @@ class LMHControlLightsViewController: UIViewController {
   //  @IBAction func randomizeColoursOfConnectLights(AnyObject) {
   @IBAction func randomizeColoursOfConnectLights(_: AnyObject) {
     
-    randomLightsButton?.enabled = false
+    randomLightsButton?.isEnabled = false
     let cache = PHBridgeResourcesReader.readBridgeResourcesCache()
     let bridgeSendAPI = PHBridgeSendAPI()
     
     for light in cache!.lights!.values {
       // don't update state of non-reachable lights
-      if light.lightState!.reachable == 0 {
+      if (light as AnyObject).lightState!.reachable == 0 {
         continue
       }
       
       let lightState = PHLightState()
       
-      if light.type == DIM_LIGHT {
+      if (light as AnyObject).type == DIM_LIGHT {
         // Lux bulbs just get a random brightness
-        lightState.brightness = Int(arc4random_uniform(UInt32(maxDim)))
+        lightState.brightness = Int(arc4random_uniform(UInt32(maxDim))) as NSNumber
       } else {
         let hueColor = Int(arc4random_uniform(UInt32(maxHue)))
 
-        lightState.hue = hueColor//Int(Int(arc4random()) % 10000)
+        lightState.hue = hueColor as NSNumber//Int(Int(arc4random()) % 10000)
         lightState.brightness = 254
         lightState.saturation = 254
       }
       
       // Send lightstate to light
-      bridgeSendAPI.updateLightStateForId(light.identifier, withLightState: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
+      bridgeSendAPI.updateLightState(forId: (light as AnyObject).identifier, with: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
         
         if errors != nil {
           let message = String(format: NSLocalizedString("Errors %@", comment: ""), errors)
           NSLog("Response: \(message)")
         }
-        self.randomLightsButton?.enabled = true
+        self.randomLightsButton?.isEnabled = true
       })
     }
   }
   
   
-  @IBAction func lightsOnBtn(sender: UIButton) {
+  @IBAction func lightsOnBtn(_ sender: UIButton) {
     
     let cache = PHBridgeResourcesReader.readBridgeResourcesCache()
     let bridgeSendAPI = PHBridgeSendAPI()
     
     for light in cache!.lights!.values {
       // don't update state of non-reachable lights
-      if light.lightState!.reachable == 0 {
+      if (light as AnyObject).lightState!.reachable == 0 {
         continue
       }
       
@@ -154,26 +154,26 @@ class LMHControlLightsViewController: UIViewController {
       lightState.on = true
  
       // Send lightstate to light
-      bridgeSendAPI.updateLightStateForId(light.identifier, withLightState: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
+      bridgeSendAPI.updateLightState(forId: (light as AnyObject).identifier, with: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
         
         if errors != nil {
           let message = String(format: NSLocalizedString("Errors %@", comment: ""), errors)
           NSLog("Response: \(message)")
         }
-        self.randomLightsButton?.enabled = true
+        self.randomLightsButton?.isEnabled = true
       })
     }
   }
   
   
-  @IBAction func lightsOffBtn(sender: UIButton) {
+  @IBAction func lightsOffBtn(_ sender: UIButton) {
     
     let cache = PHBridgeResourcesReader.readBridgeResourcesCache()
     let bridgeSendAPI = PHBridgeSendAPI()
     
     for light in cache!.lights!.values {
       // don't update state of non-reachable lights
-      if light.lightState!.reachable == 0 {
+      if (light as AnyObject).lightState!.reachable == 0 {
         continue
       }
       
@@ -182,20 +182,20 @@ class LMHControlLightsViewController: UIViewController {
       lightState.on = false
       
       // Send lightstate to light
-      bridgeSendAPI.updateLightStateForId(light.identifier, withLightState: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
+      bridgeSendAPI.updateLightState(forId: (light as AnyObject).identifier, with: lightState, completionHandler: { (errors: [AnyObject]!) -> () in
         
         if errors != nil {
           let message = String(format: NSLocalizedString("Errors %@", comment: ""), errors)
           NSLog("Response: \(message)")
         }
-        self.randomLightsButton?.enabled = true
+        self.randomLightsButton?.isEnabled = true
       })
     }
   }
   
   
   func findNewBridgeButtonAction() {
-    let appDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     appDelegate.searchForBridgeLocal()
   }
 }

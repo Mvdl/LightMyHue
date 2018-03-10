@@ -12,7 +12,7 @@
 import UIKit
 
 protocol PHBridgeSelectionViewControllerDelegate {
-  func bridgeSelectedWithIpAddress(ipAddress: String, bridgeId: String)
+  func bridgeSelectedWithIpAddress(_ ipAddress: String, bridgeId: String)
 }
 
 
@@ -27,7 +27,7 @@ class LMHBridgeSelectionViewController: UITableViewController {
     // Set title of screen
     title = "Available Smart Bridges"
     
-    let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh,
+    let refreshBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh,
                                                target: self, action: #selector(LMHBridgeSelectionViewController.refreshButtonClicked(_:)))
     navigationItem.rightBarButtonItem = refreshBarButtonItem
   }
@@ -39,31 +39,31 @@ class LMHBridgeSelectionViewController: UITableViewController {
   }
   
   
-  func refreshButtonClicked(sender: UIBarButtonItem) {
-    navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    (UIApplication.sharedApplication().delegate as! AppDelegate).searchForBridgeLocal()
+  func refreshButtonClicked(_ sender: UIBarButtonItem) {
+    navigationController?.dismiss(animated: true, completion: nil)
+    (UIApplication.shared.delegate as! AppDelegate).searchForBridgeLocal()
   }
   
   
   // MARK: - Table view data source
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
   
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return bridgesFound!.count
   }
   
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
     
     // Sort bridges by mac address
     let keys = [String](bridgesFound!.keys)
-    let sortedKeys = keys.sort() { $0.caseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
+    let sortedKeys = keys.sorted() { $0.caseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
     
     let mac = sortedKeys[indexPath.row]
     let ip = bridgesFound![mac]
@@ -75,17 +75,17 @@ class LMHBridgeSelectionViewController: UITableViewController {
   }
   
   
-  override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+  override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
     return "Please select a SmartBridge to use for this application"
   }
   
   
   // MARK: - Table View Delegate
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     // Sort bridges by mac address
     let keys = [String](bridgesFound!.keys)
-    let sortedKeys = keys.sort() { $0.caseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
+    let sortedKeys = keys.sorted() { $0.caseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
     
     // The choice of bridge to use is made, store the mac and ip address for this bridge
     

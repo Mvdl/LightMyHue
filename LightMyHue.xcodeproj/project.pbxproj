@@ -175,6 +175,7 @@
 					7B68C37A1CEC7A4E00075A77 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = NCCM46Q6WU;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -352,6 +353,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LightMyHue-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -371,6 +373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mvdlinden.LightMyHue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LightMyHue-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -393,6 +396,7 @@
 				7B68C38F1CEC7A4E00075A77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
